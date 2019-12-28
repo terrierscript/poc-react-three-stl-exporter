@@ -25,6 +25,7 @@
     "react-three-fiber": "^3.0.17",
     "styled-components": "^4.4.1",
     "three": "^0.112.1",
+    "three-stlexporter": "^1.0.0",
     "typescript": "^3.7.4"
   },
   "scripts": {

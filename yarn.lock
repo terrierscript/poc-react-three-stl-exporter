@@ -7210,10 +7210,22 @@ text-table@^0.2.0:
   resolved "https://registry.yarnpkg.com/text-table/-/text-table-0.2.0.tgz#7f5ee823ae805207c00af2df4a84ec3fcfa570b4"
   integrity sha1-f17oI66AUgfACvLfSoTsP8+lcLQ=
 
+three-stlexporter@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/three-stlexporter/-/three-stlexporter-1.0.0.tgz#ecf5d26f2a07450dd9813576fb84b2b545895e5d"
+  integrity sha1-7PXSbyoHRQ3ZgTV2+4SytUWJXl0=
+  dependencies:
+    three "^0.79.0"
+
 three@^0.112.1:
   version "0.112.1"
   resolved "https://registry.yarnpkg.com/three/-/three-0.112.1.tgz#f8d8f4d0f8e5f753dac6260491b8209457fdc131"
   integrity sha512-8I0O74hiYtKl3LgDNcPJbBGOlpekbcJ6fJnImmW3mFdeUFJ2H9Y3/UuUSW2sBdjrIlCM0gvOkaTEFlofO900TQ==
+
+three@^0.79.0:
+  version "0.79.0"
+  resolved "https://registry.yarnpkg.com/three/-/three-0.79.0.tgz#3af96fda47f68b7ab093c298dfa335fa45da0cf4"
+  integrity sha1-Ovlv2kf2i3qwk8KY36M1+kXaDPQ=
 
 throat@^4.0.0:
   version "4.1.0"
