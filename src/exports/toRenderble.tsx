@@ -27,20 +27,24 @@ export const toRenderble = (scene: Scene): Scene => {
     if (!mesh.geometry) {
       return
     }
+    obj.updateMatrix()
     mesh.material = new MeshBasicMaterial()
     // @ts-ignore
     const geom = obj.geometry.clone()
     if (isBufferGeometry(geom)) {
-      // geom.setAttribute("position", new Float32BufferAttribute([], 3))
+      console.log(obj.geometry)
+      // geom.setAttribute("position", new Float32BufferAttribute([0, 0, 0], 3))
       const convertedGeometry = new Geometry().fromBufferGeometry(geom) //.obj.geometry)
       mesh.geometry = convertedGeometry
+    } else {
+      mesh.geometry = geom
     }
-    mesh.geometry = geom
     geometry.mergeMesh(mesh)
   })
 
   const outputScene = new Scene()
-  const mesh = new Mesh(geometry, new MeshBasicMaterial())
+  const buf = new BufferGeometry().fromGeometry(geometry)
+  const mesh = new Mesh(buf, new MeshBasicMaterial())
   outputScene.add(mesh)
   return outputScene
 }
