@@ -15,13 +15,22 @@ import { OrthographicCamera } from "three"
 import { Controls } from "./Controls"
 import { Background } from "./Background"
 
+const template = `
+  "prev r1" 
+  "prev r2"
+`
 const Grid = styled.div`
   display: grid;
+  height: 100vh;
+  width: 100vw;
+  grid-template-areas: ${template};
+  grid-template-rows: 1fr 1fr;
   grid-template-columns: 1fr 1fr;
 `
 
-const GridCanvasArea = styled.div`
-  grid-column: 2;
+const GridCanvasArea = styled.div<{ area: string }>`
+  grid-area: ${({ area }) => area};
+  max-height: 90vh;
 `
 
 const Field = () => {
@@ -29,18 +38,23 @@ const Field = () => {
   // const a = useStore()
   return (
     <Grid>
-      <ExportStlResult></ExportStlResult>
-      <ExportGltfResult></ExportGltfResult>
-      <GridCanvasArea>
+      <GridCanvasArea area="prev">
+        <h3>Preview</h3>
         <Canvas camera={{ position: [0, 0, 30] }}>
-          <Background />
           <ExportPassProvider value={value}>
             <Model />
             <ExportStl />
             <ExportGltf />
           </ExportPassProvider>
+          <Background />
           <Controls />
         </Canvas>
+      </GridCanvasArea>
+      <GridCanvasArea area="r1">
+        <ExportStlResult></ExportStlResult>
+      </GridCanvasArea>
+      <GridCanvasArea area="r2">
+        <ExportGltfResult></ExportGltfResult>
       </GridCanvasArea>
     </Grid>
   )
