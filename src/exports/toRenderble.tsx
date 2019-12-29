@@ -21,12 +21,18 @@ export const isGeometry = (obj: any): obj is Geometry => {
   return obj.isGeometry
 }
 
-const toBufferGeometry = (geom: Geometry | BufferGeometry): Geometry | null => {
-  console.log(geom)
+const toRenderableGeometry = (
+  geom: Geometry | BufferGeometry
+): Geometry | null => {
   if (isGeometry(geom)) {
     return geom
   }
-  // const buf = new BufferGeometry().fromGeometry(geom.clone())
+  if (geom.index === null) {
+    return null
+  }
+  const buf = new Geometry().fromBufferGeometry(geom)
+  console.log(buf)
+  return buf
   // const c = geom.clone()
 
   // console.log(geom)
@@ -59,11 +65,11 @@ export const toRenderble = (scene: Scene): Scene => {
 
     mesh.material = new MeshBasicMaterial()
     // @ts-ignore
-    const appendGeom = toBufferGeometry(mesh.geometry)
+    const appendGeom = toRenderableGeometry(mesh.geometry)
     if (!appendGeom) {
       return null
-      // mesh.geometry = appendGeom
     }
+    mesh.geometry = appendGeom
     tmpGeometry.mergeMesh(mesh)
   })
 
