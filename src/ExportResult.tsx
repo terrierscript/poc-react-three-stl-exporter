@@ -9,16 +9,23 @@ const ScrollContainer = styled.div`
 export const ExportStlResult = () => {
   const { stlResult } = useExporterStore()
   return (
-    <ScrollContainer>
-      <pre>{stlResult}</pre>
-    </ScrollContainer>
+    <div>
+      <h3>STL Output</h3>
+      <ScrollContainer>
+        <pre>{stlResult}</pre>
+      </ScrollContainer>
+    </div>
   )
 }
 export const ExportGltfResult = () => {
   const { gltfResult } = useExporterStore()
   return (
-    <ScrollContainer>
-      <pre>{gltfResult}</pre>
-    </ScrollContainer>
+    <div>
+      <h3>glTF Output</h3>
+
+      <ScrollContainer>
+        <pre>{gltfResult}</pre>
+      </ScrollContainer>
+    </div>
   )
 }
