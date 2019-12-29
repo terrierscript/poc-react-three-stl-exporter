@@ -3,15 +3,17 @@ import React from "react"
 
 export const Model = () => {
   return (
-    <mesh name="xx">
-      <mesh position={[0, 0, 0]}>
-        <boxBufferGeometry name="box" attach="geometry" args={[1, 1, 1]} />
-        <meshNormalMaterial attach="material" />
-      </mesh>
-      <mesh position={[0.5, 0.5, 0]}>
-        <boxBufferGeometry name="box2" attach="geometry" args={[1, 1, 1]} />
-        <meshNormalMaterial attach="material" />
-      </mesh>
+    <mesh position={[0, 0, 0]}>
+      <cylinderBufferGeometry attach="geometry" args={[0.5, 0.5, 0.5]} />
+      <meshStandardMaterial attach="material" />
+    </mesh>
+  )
+}
+export const Model2 = () => {
+  return (
+    <mesh position={[0.5, 0.5, 0]}>
+      <boxBufferGeometry name="box2" attach="geometry" args={[1, 1, 1]} />
+      <meshStandardMaterial attach="material" />
     </mesh>
   )
 }

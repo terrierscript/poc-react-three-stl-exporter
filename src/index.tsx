@@ -1,9 +1,11 @@
 import { useRef, useEffect, createContext } from "react"
 import { render } from "react-dom"
 import { Canvas, useFrame, useThree } from "react-three-fiber"
-import { Model } from "./Model"
+import { Model, Model2 } from "./Model"
 import { STLExporter } from "three/examples/jsm/exporters/STLExporter"
+// import { STLExporter } from "./stlExporterFork"
 // import { OBJExporter } from "three/examples/jsm/exporters/OBJExporter"
+import { GLTFExporter } from "three/examples/jsm/exporters/GLTFExporter"
 import React from "react"
 import {
   ExporterStoreProvider,
@@ -21,10 +23,20 @@ const Export = () => {
   console.log(scene)
   const r = useExporterStore()
   useEffect(() => {
-    const stl = new STLExporter().parse(scene)
-    r.setResult(stl)
+    // const stl = new STLExporter().parse(scene)
+    // r.setResult(stl)
+
+    const stl = new GLTFExporter().parse(
+      scene,
+      (obj) => {
+        // console.log(obj)
+        r.setResult(JSON.stringify(obj, null, 2))
+      },
+      {}
+    )
   }, [scene])
-  return <mesh></mesh>
+  return <></>
+  // return <mesh></mesh>
 }
 
 const ScrollContainer = styled.div`
@@ -35,7 +47,7 @@ const ExportResult = () => {
   const { result } = useExporterStore()
   return (
     <ScrollContainer>
-      <pre>result:{result}</pre>
+      <pre>{result}</pre>
     </ScrollContainer>
   )
 }
@@ -45,14 +57,20 @@ const Grid = styled.div`
   grid-template-columns: 1fr 1fr;
 `
 
-const Field = () => {
+const Camera = ({ children }) => {
   const ref = useRef()
+  useFrame(() => {
+    if (!ref.current || !ref.current.rotation) {
+      return
+    }
+    // @ts-ignore
+    ref.current.rotation.x = ref.current.rotation.y += 0.01
+  })
+  return <mesh ref={ref}>{children}</mesh>
+}
+
+const Field = () => {
   const value = useExporterStore()
-  // useFrame(() => {
-  //   if (!ref || !ref.current) return
-  //   // if (!ref.current.rotation) return
-  //   ref.current.rotation.x = ref.current.rotation.y += 0.01
-  // })
 
   // const a = useStore()
   return (
@@ -60,10 +78,14 @@ const Field = () => {
       <ExportResult></ExportResult>
       <Canvas>
         <ExportPassProvider value={value}>
-          <mesh ref={ref} name="zz">
-            <Thing />
+          <Camera>
+            {/* <Thing /> */}
+            <mesh>
+              <Model />
+              <Model2 />
+            </mesh>
             <Export />
-          </mesh>
+          </Camera>
         </ExportPassProvider>
       </Canvas>
     </Grid>
