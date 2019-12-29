@@ -3,9 +3,15 @@ import React from "react"
 
 export const Model = () => {
   return (
-    <mesh>
-      <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
-      <meshNormalMaterial attach="material" />
+    <mesh name="xx">
+      <mesh position={[0, 0, 0]}>
+        <boxBufferGeometry name="box" attach="geometry" args={[1, 1, 1]} />
+        <meshNormalMaterial attach="material" />
+      </mesh>
+      <mesh position={[0.5, 0.5, 0]}>
+        <boxBufferGeometry name="box2" attach="geometry" args={[1, 1, 1]} />
+        <meshNormalMaterial attach="material" />
+      </mesh>
     </mesh>
   )
 }

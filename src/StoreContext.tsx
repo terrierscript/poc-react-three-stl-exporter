@@ -1,26 +1,33 @@
 import React, { useContext, useState } from "react"
 
-const StoreContext = React.createContext({})
-const { Provider } = StoreContext
-
-const useStoreInner = () => {
+const useExporterStoreInner = () => {
   const [result, setResult] = useState("")
   return {
     result,
     setResult
   }
 }
-export const StoreProvider = ({ children }) => {
-  const storeInner = useStoreInner()
+
+type StoreType = ReturnType<typeof useExporterStoreInner>
+
+const StoreContext = React.createContext<StoreType>({
+  result: "",
+  setResult: () => {
+    throw new Error("")
+  }
+})
+
+const { Provider } = StoreContext
+
+export const ExporterStoreProvider = ({ children }) => {
+  const storeInner = useExporterStoreInner()
   return <Provider value={storeInner}>{children}</Provider>
 }
 
-export const useStore = () => {
+export const useExporterStore = () => {
   return useContext(StoreContext)
 }
 
-export const PassProvider = ({ children }) => {
-  const value = useContext(StoreContext)
-  console.log("va", value)
+export const ExportPassProvider = ({ value, children }) => {
   return <Provider value={value}>{children}</Provider>
 }

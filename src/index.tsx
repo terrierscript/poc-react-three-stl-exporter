@@ -3,8 +3,14 @@ import { render } from "react-dom"
 import { Canvas, useFrame, useThree } from "react-three-fiber"
 import { Model } from "./Model"
 import { STLExporter } from "three/examples/jsm/exporters/STLExporter"
+// import { OBJExporter } from "three/examples/jsm/exporters/OBJExporter"
 import React from "react"
-import { StoreProvider, PassProvider, useStore } from "./StoreContext"
+import {
+  ExporterStoreProvider,
+  ExportPassProvider,
+  useExporterStore
+} from "./StoreContext"
+import styled from "styled-components"
 
 const Thing = () => {
   return <Model />
@@ -12,22 +18,36 @@ const Thing = () => {
 
 const Export = () => {
   const { scene } = useThree()
-  const { setResult } = useStore()
+  console.log(scene)
+  const r = useExporterStore()
   useEffect(() => {
     const stl = new STLExporter().parse(scene)
-    console.log(stl)
-    //   setResult(stl)
+    r.setResult(stl)
   }, [scene])
   return <mesh></mesh>
 }
 
+const ScrollContainer = styled.div`
+  overflow-y: scroll;
+  height: 100vh;
+`
 const ExportResult = () => {
-  const { result } = useStore()
-  console.log(result)
-  return <pre>{result}</pre>
+  const { result } = useExporterStore()
+  return (
+    <ScrollContainer>
+      <pre>result:{result}</pre>
+    </ScrollContainer>
+  )
 }
+
+const Grid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+`
+
 const Field = () => {
   const ref = useRef()
+  const value = useExporterStore()
   // useFrame(() => {
   //   if (!ref || !ref.current) return
   //   // if (!ref.current.rotation) return
@@ -36,29 +56,26 @@ const Field = () => {
 
   // const a = useStore()
   return (
-    <div>
+    <Grid>
+      <ExportResult></ExportResult>
       <Canvas>
-        <PassProvider>
-          <mesh ref={ref}>
+        <ExportPassProvider value={value}>
+          <mesh ref={ref} name="zz">
             <Thing />
             <Export />
           </mesh>
-        </PassProvider>
+        </ExportPassProvider>
       </Canvas>
-      <ExportResult></ExportResult>
-    </div>
+    </Grid>
   )
 }
 
 const App = () => {
   return (
     <div>
-      <StoreProvider>
+      <ExporterStoreProvider>
         <Field />
-        {/* <Canvas>
-          <Thing />
-        </Canvas> */}
-      </StoreProvider>
+      </ExporterStoreProvider>
     </div>
   )
 }
