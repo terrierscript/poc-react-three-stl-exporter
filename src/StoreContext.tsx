@@ -26,7 +26,7 @@ export const ExporterStoreProvider = ({ children }) => {
   return <Provider value={storeInner}>{children}</Provider>
 }
 
-export const useExporterStore = () => {
+export const useExporterStore = (): StoreType => {
   return useContext(StoreContext)
 }
 
