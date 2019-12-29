@@ -22,12 +22,13 @@ const Model2 = () => {
   return (
     <mesh>
       <mesh position={[0.5, 0.2, 0]}>
-        <boxGeometry attach="geometry" args={[1, 0.2, 0.5]} />
+        {/* <boxGeometry attach="geometry" args={[1, 0.2, 0.5]} /> */}
+        <boxBufferGeometry attach="geometry" args={[1, 0.2, 0.5]} />
         <meshNormalMaterial attach="material" />
       </mesh>
       <mesh position={[0, 0.5, 0]}>
-        {/* <boxBufferGeometry attach="geometry" args={[1, 0.2, 0.5]} /> */}
-        <octahedronGeometry attach="geometry" args={[0.4]} />
+        {/* <octahedronGeometry attach="geometry" args={[0.4]} /> */}
+        <octahedronBufferGeometry attach="geometry" args={[0.4]} />
         <meshNormalMaterial attach="material" />
       </mesh>
     </mesh>

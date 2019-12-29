@@ -27,44 +27,30 @@ const toRenderableGeometry = (
   if (isGeometry(geom)) {
     return geom
   }
-  if (geom.index === null) {
+
+  // Try to convert BufferGeometry (so buggy)
+  if (geom.index === null && !geom.getAttribute("position")) {
     return null
   }
-  const buf = new Geometry().fromBufferGeometry(geom)
-  console.log(buf)
-  return buf
-  // const c = geom.clone()
-
-  // console.log(geom)
-  // console.log(c)
-  // c.setAttribute(
-  //   "position",
-  //   //   new BufferAttribute(new Float32Array([0, 0, 0, 0, 0, 0, 0, 0, 0]), 3)
-  //   [],
-  //   3
-  // )
-  // console.log("===")
-  // console.log(c.)
-  // c.computeVertexNormals()
-  // c.merge
-  // const b = new Geometry().fromBufferGeometry(c)
-  return null
+  try{
+    const buf = new Geometry().fromBufferGeometry(geom)
+    return buf
+  }catch(e){
+    console.warn(`skip: ${geom}`)
+    return null
+  }
 }
 
 export const toRenderble = (scene: Scene): Scene => {
   let tmpGeometry = new Geometry()
-  // let baseMesh = new Mesh()
-  const copyScene = scene.clone()
-
-  copyScene.traverse((obj) => {
-    if (!isMesh(obj)) return
-    const mesh = obj.clone()
+  
+  scene.clone().traverse((mesh) => {
+    if (!isMesh(mesh)) return
+    // const mesh = obj.clone()
     if (!mesh.geometry) {
       return
     }
-
-    mesh.material = new MeshBasicMaterial()
-    // @ts-ignore
+  // @ts-ignore
     const appendGeom = toRenderableGeometry(mesh.geometry)
     if (!appendGeom) {
       return null
@@ -74,7 +60,8 @@ export const toRenderble = (scene: Scene): Scene => {
   })
 
   const outputScene = new Scene()
-  const mesh = new Mesh(tmpGeometry, new MeshBasicMaterial())
+  const buf = new BufferGeometry().fromGeometry(tmpGeometry)
+  const mesh = new Mesh(buf, new MeshBasicMaterial())
   outputScene.add(mesh)
   return outputScene
 }

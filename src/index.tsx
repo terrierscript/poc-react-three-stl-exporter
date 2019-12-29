@@ -1,8 +1,7 @@
-import React, { useRef, createContext } from "react"
+import React, { useRef } from "react"
 import { render } from "react-dom"
-import { Canvas, useFrame, useThree } from "react-three-fiber"
-import { Model, Model2 } from "./Model"
-import React from "react"
+import { Canvas, useThree } from "react-three-fiber"
+import { Model } from "./Model"
 import {
   ExporterStoreProvider,
   ExportPassProvider,
