@@ -2,7 +2,10 @@ import React, { useContext, useState } from "react"
 
 const useExporterStoreInner = () => {
   const [result, setResult] = useState("")
+  const [stlResult, setStl] = useState("")
   return {
+    stlResult,
+    setStl,
     result,
     setResult
   }
@@ -10,12 +13,8 @@ const useExporterStoreInner = () => {
 
 type StoreType = ReturnType<typeof useExporterStoreInner>
 
-const StoreContext = React.createContext<StoreType>({
-  result: "",
-  setResult: () => {
-    throw new Error("")
-  }
-})
+// @ts-ignore
+const StoreContext = React.createContext<StoreType>({})
 
 const { Provider } = StoreContext
 

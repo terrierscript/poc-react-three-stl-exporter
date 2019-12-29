@@ -5,15 +5,15 @@ export const Model = () => {
   return (
     <mesh position={[0, 0, 0]}>
       <cylinderBufferGeometry attach="geometry" args={[0.5, 0.5, 0.5]} />
-      <meshStandardMaterial attach="material" />
+      <meshBasicMaterial attach="material" />
     </mesh>
   )
 }
 export const Model2 = () => {
   return (
-    <mesh position={[0.5, 0.5, 0]}>
-      <boxBufferGeometry name="box2" attach="geometry" args={[1, 1, 1]} />
-      <meshStandardMaterial attach="material" />
+    <mesh position={[0.5, 0.2, 0]}>
+      <boxBufferGeometry name="box2" attach="geometry" args={[1, 0.2, 0.5]} />
+      <meshNormalMaterial attach="material" />
     </mesh>
   )
 }
