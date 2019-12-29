@@ -28,7 +28,7 @@ const toRenderableGeometry = (
     return geom
   }
 
-  // Try to convert BufferGeometry (so buggy)
+  // Try to convert BufferGeometry (not stable...)
   if (geom.index === null && !geom.getAttribute("position")) {
     return null
   }
