@@ -1,4 +1,4 @@
-import { useRef, createContext } from "react"
+import React, { useRef, createContext } from "react"
 import { render } from "react-dom"
 import { Canvas, useFrame, useThree } from "react-three-fiber"
 import { Model, Model2 } from "./Model"
@@ -12,15 +12,6 @@ import styled from "styled-components"
 import { ExportStl } from "./exports/ExportStl"
 import { ExportStlResult, ExportGltfResult } from "./ExportResult"
 import { ExportGltf } from "./exports/ExportGltf"
-
-const Thing = () => {
-  return (
-    <mesh>
-      <Model />
-      <Model2 />
-    </mesh>
-  )
-}
 
 const Grid = styled.div`
   display: grid;
@@ -53,7 +44,7 @@ const Field = () => {
       <Canvas>
         <ExportPassProvider value={value}>
           <Camera>
-            <Thing />
+            <Model />
             <ExportStl />
             <ExportGltf />
           </Camera>
