@@ -28,7 +28,7 @@ const Model2 = () => {
         <octahedronBufferGeometry attach="geometry" args={[4]} />
         <meshNormalMaterial attach="material" />
       </mesh>
-      <mesh position={[3, 0.3, 3]}>
+      <mesh position={[3, 0.5, 3]}>
         <sphereGeometry attach="geometry" args={[3, 10, 32]} />
         <meshNormalMaterial attach="material" />
       </mesh>
