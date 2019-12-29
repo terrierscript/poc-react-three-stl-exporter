@@ -20,12 +20,16 @@ const Model1 = () => {
 const Model2 = () => {
   return (
     <mesh>
-      <mesh position={[5, -1.5, 3]}>
+      <mesh position={[-5, -1.5, -3]}>
         <boxBufferGeometry attach="geometry" args={[6, 2, 5]} />
         <meshNormalMaterial attach="material" />
       </mesh>
       <mesh position={[0, 3, -1]}>
         <octahedronBufferGeometry attach="geometry" args={[4]} />
+        <meshNormalMaterial attach="material" />
+      </mesh>
+      <mesh position={[3, 0.3, 3]}>
+        <sphereGeometry attach="geometry" args={[3, 10, 32]} />
         <meshNormalMaterial attach="material" />
       </mesh>
     </mesh>
