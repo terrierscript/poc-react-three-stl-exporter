@@ -3,9 +3,12 @@ import React, { useContext, useState } from "react"
 const useExporterStoreInner = () => {
   const [result, setResult] = useState("")
   const [stlResult, setStl] = useState("")
+  const [gltfResult, setGltf] = useState("")
   return {
     stlResult,
     setStl,
+    gltfResult,
+    setGltf,
     result,
     setResult
   }

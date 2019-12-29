@@ -42,12 +42,14 @@ const toRenderble = (scene: Scene): Scene => {
     }
 
     // @ts-ignore
-    const geom = obj.geometry.clone()
+    let geom = obj.geometry.clone()
     if (isBufferGeometry(geom)) {
       geom.addAttribute("position", new Float32BufferAttribute([], 3))
-
       const convertedGeometry = new Geometry().fromBufferGeometry(geom) //.obj.geometry)
+
       obj.geometry = convertedGeometry
+    } else {
+      obj.geometry = geom
     }
     obj.material = new MeshBasicMaterial()
     geometry.mergeMesh(obj)
@@ -73,19 +75,11 @@ const exportGltf = (scene, cb) => {
 export const Export = () => {
   const { scene } = useThree()
 
-  const { setResult, setStl } = useExporterStore()
+  const { setStl } = useExporterStore()
   useEffect(() => {
     const copyScene = toRenderble(scene)
     const stl = new STLExporter().parse(copyScene)
     setStl(stl)
-    // const obj = new OBJExporter().parse(scene)
-    // r.setResult(obj)
-
-    // GLTF
-    exportGltf(copyScene, setResult)
-    // const c = new ColladaExporter().parse(copyScene)
-    // console.log(c)
-    // setResult(c)
   }, [scene])
   // return <></>
   return <mesh></mesh>

@@ -9,8 +9,9 @@ import {
   useExporterStore
 } from "./StoreContext"
 import styled from "styled-components"
-import { Export } from "./Export"
+import { Export as ExportStl } from "./ExportStl"
 import { ExportResult } from "./ExportResult"
+import { ExportGltf } from "./ExportGltf"
 
 const Thing = () => {
   return (
@@ -52,7 +53,8 @@ const Field = () => {
         <ExportPassProvider value={value}>
           <Camera>
             <Thing />
-            <Export />
+            <ExportStl />
+            {/* <ExportGltf /> */}
           </Camera>
         </ExportPassProvider>
       </Canvas>

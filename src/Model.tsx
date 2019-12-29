@@ -4,8 +4,8 @@ import React from "react"
 export const Model = () => {
   return (
     <mesh position={[0, 0, 0]}>
-      {/* <cylinderBufferGeometry attach="geometry" args={[0.5, 0.5, 0.5]} /> */}
       <cylinderGeometry attach="geometry" args={[0.5, 0.5, 0.5]} />
+      {/* <cylinderGeometry attach="geometry" args={[0.5, 0.5, 0.5]} /> */}
       <meshBasicMaterial attach="material" />
     </mesh>
   )

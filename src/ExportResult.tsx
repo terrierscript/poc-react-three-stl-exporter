@@ -7,11 +7,12 @@ const ScrollContainer = styled.div`
   height: 100vh;
 `
 export const ExportResult = () => {
-  const { stlResult, result } = useExporterStore()
+  const { stlResult, gltfResult, result } = useExporterStore()
   return (
     <ScrollContainer>
       <pre>{stlResult}</pre>
       {/* <pre>{result}</pre> */}
+      {/* <pre>{gltfResult}</pre> */}
     </ScrollContainer>
   )
 }
