@@ -13,8 +13,8 @@ export const Model = () => {
 export const Model2 = () => {
   return (
     <mesh position={[0.5, 0.2, 0]}>
-      {/* <boxBufferGeometry name="box2" attach="geometry" args={[1, 0.2, 0.5]} /> */}
-      <boxGeometry name="box2" attach="geometry" args={[1, 0.2, 0.5]} />
+      <boxBufferGeometry attach="geometry" args={[1, 0.2, 0.5]} />
+      {/* <boxGeometry name="box2" attach="geometry" args={[1, 0.2, 0.5]} /> */}
       <meshNormalMaterial attach="material" />
     </mesh>
   )

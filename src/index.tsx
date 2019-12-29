@@ -9,9 +9,9 @@ import {
   useExporterStore
 } from "./StoreContext"
 import styled from "styled-components"
-import { Export as ExportStl } from "./ExportStl"
-import { ExportResult } from "./ExportResult"
-import { ExportGltf } from "./ExportGltf"
+import { ExportStl } from "./exports/ExportStl"
+import { ExportStlResult, ExportGltfResult } from "./ExportResult"
+import { ExportGltf } from "./exports/ExportGltf"
 
 const Thing = () => {
   return (
@@ -24,7 +24,7 @@ const Thing = () => {
 
 const Grid = styled.div`
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr;
 `
 
 const Camera = ({ children }) => {
@@ -48,13 +48,14 @@ const Field = () => {
   // const a = useStore()
   return (
     <Grid>
-      <ExportResult></ExportResult>
+      <ExportStlResult></ExportStlResult>
+      <ExportGltfResult></ExportGltfResult>
       <Canvas>
         <ExportPassProvider value={value}>
           <Camera>
             <Thing />
             <ExportStl />
-            {/* <ExportGltf /> */}
+            <ExportGltf />
           </Camera>
         </ExportPassProvider>
       </Canvas>
