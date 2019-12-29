@@ -15,14 +15,16 @@ import {
   Geometry,
   BufferGeometry,
   Object3D,
-  BufferAttribute
+  BufferAttribute,
+  Float32BufferAttribute
 } from "three"
 
 const isMesh = (obj: Object3D): obj is Mesh => {
   //@ts-ignore
   return obj.isMesh
 }
-const isBufferGeometry = (obj: Object3D): obj is Mesh => {
+
+const isBufferGeometry = (obj: any): obj is BufferGeometry => {
   //@ts-ignore
   return obj.isBufferGeometry
 }
@@ -34,17 +36,19 @@ const toRenderble = (scene: Scene): Scene => {
   copyScene.traverse((obj) => {
     if (!isMesh(obj)) return
     obj.updateMatrix()
-    console.log(obj.position)
 
-    // obj.geometry.setAttribute("position", new BufferAttribute([obj.position.x,obj.position.y,obj.position.z],3) )
     if (!obj.geometry) {
       return
     }
 
-    const convertedGeometry = new Geometry().fromBufferGeometry(obj.geometry)
-    // // console.log( THREE.MeshBasicMaterial)
-    // // console.log(obj, obj.material)
-    // obj.geometry = convertedGeometry
+    // @ts-ignore
+    const geom = obj.geometry.clone()
+    if (isBufferGeometry(geom)) {
+      geom.addAttribute("position", new Float32BufferAttribute([], 3))
+
+      const convertedGeometry = new Geometry().fromBufferGeometry(geom) //.obj.geometry)
+      obj.geometry = convertedGeometry
+    }
     obj.material = new MeshBasicMaterial()
     geometry.mergeMesh(obj)
   })
@@ -72,8 +76,8 @@ export const Export = () => {
   const { setResult, setStl } = useExporterStore()
   useEffect(() => {
     const copyScene = toRenderble(scene)
-    // const stl = new STLExporter().parse(copyScene)
-    // setStl(stl)
+    const stl = new STLExporter().parse(copyScene)
+    setStl(stl)
     // const obj = new OBJExporter().parse(scene)
     // r.setResult(obj)
 

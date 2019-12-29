@@ -10,8 +10,8 @@ export const ExportResult = () => {
   const { stlResult, result } = useExporterStore()
   return (
     <ScrollContainer>
-      {/* <pre>{stlResult}</pre> */}
-      <pre>{result}</pre>
+      <pre>{stlResult}</pre>
+      {/* <pre>{result}</pre> */}
     </ScrollContainer>
   )
 }
