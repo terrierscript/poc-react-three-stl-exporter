@@ -14,12 +14,17 @@ import {
   Scene,
   Geometry,
   BufferGeometry,
-  Object3D
+  Object3D,
+  BufferAttribute
 } from "three"
 
 const isMesh = (obj: Object3D): obj is Mesh => {
   //@ts-ignore
   return obj.isMesh
+}
+const isBufferGeometry = (obj: Object3D): obj is Mesh => {
+  //@ts-ignore
+  return obj.isBufferGeometry
 }
 
 const toRenderble = (scene: Scene): Scene => {
@@ -29,17 +34,36 @@ const toRenderble = (scene: Scene): Scene => {
   copyScene.traverse((obj) => {
     if (!isMesh(obj)) return
     obj.updateMatrix()
-    const geom = new Geometry().fromBufferGeometry(obj.geometry)
+    console.log(obj.position)
 
-    // console.log( THREE.MeshBasicMaterial)
-    // console.log(obj, obj.material)
-    // obj.material = new MeshBasicMaterial()
-    geometry.merge(geom, obj.matrix)
+    // obj.geometry.setAttribute("position", new BufferAttribute([obj.position.x,obj.position.y,obj.position.z],3) )
+    if (!obj.geometry) {
+      return
+    }
+
+    const convertedGeometry = new Geometry().fromBufferGeometry(obj.geometry)
+    // // console.log( THREE.MeshBasicMaterial)
+    // // console.log(obj, obj.material)
+    // obj.geometry = convertedGeometry
+    obj.material = new MeshBasicMaterial()
+    geometry.mergeMesh(obj)
   })
+  // return copyScene
   const outputScene = new Scene()
   const mesh = new Mesh(geometry, new MeshBasicMaterial())
   outputScene.add(mesh)
   return outputScene
+}
+
+const exportGltf = (scene, cb) => {
+  return new GLTFExporter().parse(
+    // new PLYExporter().parse(
+    scene,
+    (obj) => {
+      cb(JSON.stringify(obj, null, 2))
+    },
+    { trs: true, forceIndices: true }
+  )
 }
 
 export const Export = () => {
@@ -54,15 +78,7 @@ export const Export = () => {
     // r.setResult(obj)
 
     // GLTF
-    new GLTFExporter().parse(
-      // new PLYExporter().parse(
-      copyScene,
-      (obj) => {
-        console.log(obj)
-        setResult(JSON.stringify(obj, null, 2))
-      },
-      { trs: true, forceIndices: true }
-    )
+    exportGltf(copyScene, setResult)
     // const c = new ColladaExporter().parse(copyScene)
     // console.log(c)
     // setResult(c)
