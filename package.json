@@ -26,7 +26,8 @@
     "styled-components": "^4.4.1",
     "three": "^0.112.1",
     "three-stlexporter": "^1.0.0",
-    "typescript": "^3.7.4"
+    "typescript": "^3.7.4",
+    "zustand": "^2.2.1"
   },
   "scripts": {
     "start": "parcel src/index.html",

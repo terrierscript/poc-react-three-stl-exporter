@@ -1,50 +1,66 @@
-import React, { useRef, useEffect } from "react"
+import { useRef, useEffect, createContext } from "react"
 import { render } from "react-dom"
-import { Canvas, useFrame,useThree } from 'react-three-fiber'
-import {  Camera } from "three"
+import { Canvas, useFrame, useThree } from "react-three-fiber"
 import { Model } from "./Model"
-import * as STLExporter from "./STLExporter"
+import { STLExporter } from "three/examples/jsm/exporters/STLExporter"
+import React from "react"
+import { StoreProvider, PassProvider, useStore } from "./StoreContext"
 
-function Thing() {
-  const ref = useRef()
-  // @ts-ignore
-  // useFrame(() => (ref.current.rotation.x = ref.current.rotation.y += 0.01))
-
-  const { camera } = useThree();
-
-  // camera.fov = 45;
-  // camera.aspect = window.innerWidth / window.innerHeight;
-  camera.near = 0.1;
-  // camera.far = 1000;
-
-  // camera.up.set(0, 0, 1);
-  camera.position.set(2, 2, 5);
-  const { scene } = useThree();
-  console.log("a")
-  useEffect(() => {
-
-    const s = STLExporter.parse(scene)
-    console.log(s)
-  },[scene])
-  return (
-    <Model/>
-  )
+const Thing = () => {
+  return <Model />
 }
 
 const Export = () => {
-  return <button onClick={() => {
-    // const s = STLExporter.parse(scene)
-    // console.log(s)
-  }}>Exp</button>
+  const { scene } = useThree()
+  const { setResult } = useStore()
+  useEffect(() => {
+    const stl = new STLExporter().parse(scene)
+    console.log(stl)
+    //   setResult(stl)
+  }, [scene])
+  return <mesh></mesh>
+}
+
+const ExportResult = () => {
+  const { result } = useStore()
+  console.log(result)
+  return <pre>{result}</pre>
+}
+const Field = () => {
+  const ref = useRef()
+  // useFrame(() => {
+  //   if (!ref || !ref.current) return
+  //   // if (!ref.current.rotation) return
+  //   ref.current.rotation.x = ref.current.rotation.y += 0.01
+  // })
+
+  // const a = useStore()
+  return (
+    <div>
+      <Canvas>
+        <PassProvider>
+          <mesh ref={ref}>
+            <Thing />
+            <Export />
+          </mesh>
+        </PassProvider>
+      </Canvas>
+      <ExportResult></ExportResult>
+    </div>
+  )
 }
 
 const App = () => {
-  return <div>
-    <Export/>
-    <Canvas >
-      <Thing></Thing>
-    </Canvas>
-  </div>
+  return (
+    <div>
+      <StoreProvider>
+        <Field />
+        {/* <Canvas>
+          <Thing />
+        </Canvas> */}
+      </StoreProvider>
+    </div>
+  )
 }
 
 render(<App />, document.querySelector("#root"))
