@@ -11,6 +11,7 @@ const ext = (convertType: CONVERT_TYPE) => {
     case "OBJ":
       return "obj"
   }
+  return "txt"
 }
 export const Download = () => {
   const { result, convertType } = useExporterStore()

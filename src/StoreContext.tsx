@@ -4,6 +4,11 @@ enum ConvertTypeEnum {
   "STL",
   "OBJ",
   "glTF"
+  // "Collada",
+  // "DRACO",
+  // "MMD",
+  // "PLY",
+  // "TypedGeometry"
 }
 export type CONVERT_TYPE = keyof typeof ConvertTypeEnum
 export const convertTypes = Object.keys(ConvertTypeEnum).filter((k) =>
