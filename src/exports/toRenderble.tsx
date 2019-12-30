@@ -3,21 +3,18 @@ import {
   MeshBasicMaterial,
   Scene,
   Geometry,
-  Float32BufferAttribute,
   BufferGeometry,
-  Object3D,
-  BufferAttribute
+  Object3D
 } from "three"
-import { BufferGeometryUtils } from "three/examples/jsm/utils/BufferGeometryUtils"
 
-export const isMesh = (obj: Object3D): obj is Mesh => {
+const isMesh = (obj: Object3D): obj is Mesh => {
   //@ts-ignore
   return obj.isMesh
 }
-export const isBufferGeometry = (obj: any): obj is BufferGeometry => {
+const isBufferGeometry = (obj: any): obj is BufferGeometry => {
   return obj.isBufferGeometry
 }
-export const isGeometry = (obj: any): obj is Geometry => {
+const isGeometry = (obj: any): obj is Geometry => {
   return obj.isGeometry
 }
 
@@ -27,15 +24,14 @@ const toRenderableGeometry = (
   if (isGeometry(geom)) {
     return geom
   }
-
   // Try to convert BufferGeometry (not stable...)
   if (geom.index === null && !geom.getAttribute("position")) {
     return null
   }
-  try{
+  try {
     const buf = new Geometry().fromBufferGeometry(geom)
     return buf
-  }catch(e){
+  } catch (e) {
     console.warn(`skip: ${geom}`)
     return null
   }
@@ -43,14 +39,12 @@ const toRenderableGeometry = (
 
 export const toRenderble = (scene: Scene): Scene => {
   let tmpGeometry = new Geometry()
-  
+
   scene.clone().traverse((mesh) => {
     if (!isMesh(mesh)) return
-    // const mesh = obj.clone()
     if (!mesh.geometry) {
       return
     }
-  // @ts-ignore
     const appendGeom = toRenderableGeometry(mesh.geometry)
     if (!appendGeom) {
       return null
