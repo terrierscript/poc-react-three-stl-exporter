@@ -11,9 +11,9 @@ const isMesh = (obj: Object3D): obj is Mesh => {
   //@ts-ignore
   return obj.isMesh
 }
-const isBufferGeometry = (obj: any): obj is BufferGeometry => {
-  return obj.isBufferGeometry
-}
+// const isBufferGeometry = (obj: any): obj is BufferGeometry => {
+//   return obj.isBufferGeometry
+// }
 const isGeometry = (obj: any): obj is Geometry => {
   return obj.isGeometry
 }
