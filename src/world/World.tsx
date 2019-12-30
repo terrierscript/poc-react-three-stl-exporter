@@ -4,8 +4,8 @@ import { ExportPassProvider, useExporterStore } from "../StoreContext"
 import { Controls } from "./Controls"
 import { Background } from "./Background"
 import { Exporter } from "./exporter/Exporter"
-import { Model } from "../model/Model"
-// import { Model } from "../model/ModelBasicExample"
+// import { Model } from "../model/ModelReactLogoCoin"
+import { Model } from "../model/ModelBasicExample"
 
 export const World = () => {
   const value = useExporterStore()
