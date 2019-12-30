@@ -1,41 +1,23 @@
 import React, { FC } from "react"
-import { useExporterStore, convertTypes } from "../StoreContext"
+import { useExporterStore } from "../StoreContext"
 import styled from "styled-components"
-import { Radio, RadioGroup, Box, Heading, Code } from "@chakra-ui/core"
+import { Box, Heading, Code } from "@chakra-ui/core"
+import { SelectConvertType } from "./SelectConvertType"
 
 const ScrollContainer = styled(Box)`
   overflow-y: scroll;
   overflow-x: scroll;
-  user-select: all;
   word-wrap: break-word;
-  max-height: 90vh;
+  max-height: 300px;
   max-width: 100%;
 `
-
-const SelectConvertType = () => {
-  const { convertType, setConvertType } = useExporterStore()
-  return (
-    <RadioGroup
-      // @ts-ignore
-      onChange={(_, value) => setConvertType(value)}
-      value={convertType}
-      isInline
-    >
-      {convertTypes.map((key) => (
-        <Radio key={key} value={key}>
-          {key}
-        </Radio>
-      ))}
-    </RadioGroup>
-  )
-}
 
 export const ExportResult = () => {
   const { result, convertType } = useExporterStore()
   return (
     <Box>
+      <Heading as="h4">{convertType} Output</Heading>
       <SelectConvertType />
-      <Heading>{convertType} Output</Heading>
       <ScrollContainer>
         <Box whiteSpace="nowrap" maxWidth="40vw">
           <Code whiteSpace="nowrap">

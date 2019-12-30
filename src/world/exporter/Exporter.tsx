@@ -33,7 +33,7 @@ const useExporter = () => {
   const { convertType, result, setResult } = useExporterStore()
   useEffect(() => {
     convert(scene, convertType).then((newResult) => {
-      console.log(newResult)
+      // console.log(newResult)
       setResult(newResult)
     })
   }, [scene, convertType])

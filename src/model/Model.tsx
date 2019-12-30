@@ -59,8 +59,8 @@ const Torus = () => {
 
 const Base = () => {
   return (
-    <mesh position={[0, 1, 0]}>
-      <cylinderGeometry attach="geometry" args={[8, 8, 3, 32]} />
+    <mesh position={[0, 2, 0]}>
+      <cylinderGeometry attach="geometry" args={[8, 8, 2, 32]} />
       <meshNormalMaterial attach="material" />
     </mesh>
   )
