@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react"
 
 enum ConvertTypeEnum {
   "STL",
+  "OBJ",
   "glTF"
 }
 export type CONVERT_TYPE = keyof typeof ConvertTypeEnum

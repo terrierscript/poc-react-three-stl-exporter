@@ -12,44 +12,29 @@ const ScrollContainer = styled(Box)`
   max-width: 100%;
 `
 
+const Result = () => {
+  const { result } = useExporterStore()
+  if (!result) {
+    return <Box>now exporting...</Box>
+  }
+  return (
+    <Box whiteSpace="nowrap" maxWidth="40vw">
+      <Code whiteSpace="nowrap">
+        <Box whiteSpace="pre">{result}</Box>
+      </Code>
+    </Box>
+  )
+}
+
 export const ExportResult = () => {
-  const { result, convertType } = useExporterStore()
+  const { convertType } = useExporterStore()
   return (
     <Box>
       <Heading as="h4">{convertType} Output</Heading>
       <SelectConvertType />
       <ScrollContainer>
-        <Box whiteSpace="nowrap" maxWidth="40vw">
-          <Code whiteSpace="nowrap">
-            <Box whiteSpace="pre">{result}</Box>
-          </Code>
-        </Box>
+        <Result />
       </ScrollContainer>
     </Box>
   )
 }
-
-// export const ExportStlResult = () => {
-//   const { stlResult } = useExporterStore()
-//   return (
-//     <div>
-//       <h3>STL Output</h3>
-//       <ScrollContainer>
-//         <pre>{stlResult}</pre>
-//       </ScrollContainer>
-//     </div>
-//   )
-// }
-
-// export const ExportGltfResult = () => {
-//   const { gltfResult } = useExporterStore()
-//   return (
-//     <div>
-//       <h3>glTF Output</h3>
-
-//       <ScrollContainer>
-//         <pre>{gltfResult}</pre>
-//       </ScrollContainer>
-//     </div>
-//   )
-// }

@@ -8,16 +8,22 @@ const ext = (convertType: CONVERT_TYPE) => {
       return "stl"
     case "glTF":
       return "gltf"
+    case "OBJ":
+      return "obj"
   }
 }
 export const Download = () => {
   const { result, convertType } = useExporterStore()
   const [data, setData] = useState<string | null>()
   useEffect(() => {
+    if (!result) {
+      setData(null)
+      return
+    }
+
     const blobUrl = URL.createObjectURL(
       new Blob([result], { type: "text.plain" })
     )
-    console.log(blobUrl)
     setData(blobUrl)
   }, [result])
   const filename = `out.${ext(convertType)}`
