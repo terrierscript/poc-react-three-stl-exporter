@@ -7,16 +7,16 @@ export const Model = () => {
   return (
     <mesh>
       <Base />
-      <Sphere />
-      <mesh>
-        <mesh position={[0, 0, 0]} rotation={[0, 0, 0]}>
+      <mesh position={[0, 0.5, 0]}>
+        <Sphere />
+        <mesh rotation={[0, 0, 0]}>
           <Torus />
         </mesh>
 
-        <mesh position={[0, 0, 0]} rotation={[0, Math.PI / 3, 0]}>
+        <mesh rotation={[0, Math.PI / 3, 0]}>
           <Torus />
         </mesh>
-        <mesh position={[0, 0, 0]} rotation={[0, -Math.PI / 3, 0]}>
+        <mesh rotation={[0, -Math.PI / 3, 0]}>
           <Torus />
         </mesh>
       </mesh>
