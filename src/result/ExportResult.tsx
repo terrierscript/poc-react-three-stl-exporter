@@ -5,8 +5,11 @@ import { Radio, RadioGroup, Box, Heading, Code } from "@chakra-ui/core"
 
 const ScrollContainer = styled(Box)`
   overflow-y: scroll;
+  overflow-x: scroll;
   user-select: all;
-  height: 90vh;
+  word-wrap: break-word;
+  max-height: 90vh;
+  max-width: 100%;
 `
 
 const SelectConvertType = () => {
@@ -34,9 +37,11 @@ export const ExportResult = () => {
       <SelectConvertType />
       <Heading>{convertType} Output</Heading>
       <ScrollContainer>
-        <Code>
-          <pre>{result}</pre>
-        </Code>
+        <Box whiteSpace="nowrap" maxWidth="40vw">
+          <Code whiteSpace="nowrap">
+            <Box whiteSpace="pre">{result}</Box>
+          </Code>
+        </Box>
       </ScrollContainer>
     </Box>
   )
