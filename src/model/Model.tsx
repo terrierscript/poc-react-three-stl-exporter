@@ -1,23 +1,24 @@
 import { Canvas, useFrame, useThree } from "react-three-fiber"
 import React from "react"
 import * as THREE from "three"
-import { EllipseCurve, Path, Curve, Vector3 } from "three"
+import { EllipseCurve, Path, Curve, Vector3, Vector2 } from "three"
 
 export const Model = () => {
   return (
     <mesh>
       <Base />
+      <BaseRing />
       <mesh position={[0, 0.5, 0]}>
         <Sphere />
         <mesh rotation={[0, 0, 0]}>
-          <Torus />
+          <Ring />
         </mesh>
 
         <mesh rotation={[0, Math.PI / 3, 0]}>
-          <Torus />
+          <Ring />
         </mesh>
         <mesh rotation={[0, -Math.PI / 3, 0]}>
-          <Torus />
+          <Ring />
         </mesh>
       </mesh>
     </mesh>
@@ -44,7 +45,7 @@ class Ellipse3d extends Curve<Vector3> {
   }
 }
 
-const Torus = () => {
+const Ring = () => {
   const curve = new Ellipse3d(
     3,
     6 // ax, aY
@@ -57,17 +58,42 @@ const Torus = () => {
   )
 }
 
+const BaseRing = () => {
+  const curve = new Ellipse3d(
+    8,
+    8 // ax, aY
+  )
+  return (
+    <mesh position={[0, 3, 0]} rotation={[Math.PI / 2, 0, 0]}>
+      <mesh>
+        <torusGeometry attach="geometry" args={[8.5, 0.5, 6, 32]} />
+        <meshNormalMaterial attach="material" />
+      </mesh>
+      <mesh>
+        <torusGeometry attach="geometry" args={[8, 0.5, 6, 32]} />
+        <meshNormalMaterial attach="material" />
+      </mesh>
+      <mesh>
+        <torusGeometry attach="geometry" args={[8.25, 0.5, 6, 32]} />
+        <meshNormalMaterial attach="material" />
+      </mesh>
+    </mesh>
+  )
+}
+
 const Base = () => {
   return (
-    <mesh position={[0, 2, 0]}>
-      <cylinderGeometry attach="geometry" args={[8, 8, 2, 32]} />
-      <meshNormalMaterial attach="material" />
+    <mesh>
+      <mesh position={[0, 1, 0]}>
+        <cylinderGeometry attach="geometry" args={[9, 9, 4, 32]} />
+        <meshNormalMaterial attach="material" />
+      </mesh>
     </mesh>
   )
 }
 function Sphere() {
   return (
-    <mesh position={[0, 3, 0]}>
+    <mesh position={[0, 2, 0]}>
       <sphereGeometry attach="geometry" args={[1.5, 32, 32]} />
       <meshNormalMaterial attach="material" />
     </mesh>
