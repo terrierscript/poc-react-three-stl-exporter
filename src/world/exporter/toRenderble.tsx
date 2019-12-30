@@ -40,14 +40,22 @@ const toRenderableGeometry = (
 export const toRenderble = (scene: Scene): Scene => {
   let tmpGeometry = new Geometry()
 
-  scene.clone().traverse((mesh) => {
+  const cloneScene = scene.clone()
+  cloneScene.updateMatrixWorld()
+  cloneScene.traverse((mesh) => {
     if (!isMesh(mesh)) return
     if (!mesh.geometry) {
       return
     }
     const appendGeom = toRenderableGeometry(mesh.geometry)
     if (!appendGeom) {
+      console.log(mesh)
       return null
+    }
+    if (mesh.parent) {
+      mesh.parent.updateMatrixWorld()
+      // mesh.updateMatrixWorld()
+      mesh.applyMatrix(mesh.parent.matrixWorld)
     }
     mesh.geometry = appendGeom
     tmpGeometry.mergeMesh(mesh)
